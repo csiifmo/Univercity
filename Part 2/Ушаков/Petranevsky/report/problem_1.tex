@@ -1,0 +1,347 @@
+\section{Построение модели траекторной чувствительности непрерывного объекта управления и результаты ее исследования}\label{problem_1}
+
+\subsection{Непрерывный объект управления в форме вход-состояние-выход}
+
+Передаточная функция заданного объекта управления имеет следующий вид:
+\begin{equation}\label{eq_OU}
+\Phi (s, q) = \cfrac{0.67(1+q_{2})} {(1+q_{4})(16(1+q_{5})s^{2}+3(1+q_{6})s+10(1+q_{7}))}.
+\end{equation}
+
+Для составления векторно-матричного описания ОУ запишем ПФ в форме
+\begin{equation*}\label{eq_pf_coc}
+\Phi (s, q) = \cfrac{\cfrac{0.67(1+q_{2})} {16(1+q_{5})(1+q_{4})}  } {s^2 + \cfrac{3(1+q_{6})} {16(1+q_{5})} s + \cfrac{5(1+q_{7})} {8(1+q_{5})}}.
+\end{equation*}
+
+В каноническом управляемом базисе, векторно-матричное представление объекта управления  имеет следующий вид:
+\begin{equation}\label{eq_iso_coc}
+\begin{cases}
+\dot x(t,q) &= A(q) x(t,q) + B u(t)\\
+y(t,q) &= C(q) x(t,q)
+\end{cases},
+\end{equation}
+где
+\begin{equation}
+	A(q) =
+	\begin{bmatrix}
+		0 & -\cfrac{5(1+q_{7})} {8(1+q_{5})}\\
+	1 & - \cfrac{3(1+q_{6})}  {16(1+q_{5})}
+	\end{bmatrix},
+\end{equation}
+\begin{equation}
+	B =
+	\begin{bmatrix}
+		\cfrac{0.67(1+q_{2})}  {16(1+q_{5})(1+q_{4})}\\
+		0
+	\end{bmatrix},
+\end{equation}
+
+\begin{equation}
+	C(q) =
+	\begin{bmatrix}
+	0& 1
+	\end{bmatrix}.
+\end{equation}
+
+\subsection{Модель траекторной чувствительности непрерывного объекта управления}
+
+Передаточная функция номинального объекта управления при $ q_{1_{0}}=...=q_{7_{0}}=0 $ имеет следующий вид:
+\begin{equation}
+	\Phi(s, 0) = \cfrac{\cfrac{0.67}{16}}{s^2 + \cfrac{3}{16} s + \cfrac{5}{8}}. 
+\end{equation}
+
+Матрицы модели вход-состояние-выход номинального объекта управления имеют следующие реализации:
+\begin{align*}
+A =
+\begin{bmatrix}
+0 & -\cfrac{5} {8}\\
+1 & - \cfrac{3}{16}
+\end{bmatrix};
+B =
+\begin{bmatrix}
+\cfrac{0.67}{16}\\
+0
+\end{bmatrix};
+C =
+\begin{bmatrix}
+0 & 1
+\end{bmatrix}.
+\end{align*}
+
+Введем обозначения
+\begin{align*}
+	&A_{q_j} = \cfrac{\partial{A(q)}}{\partial{q_j}} \bigg|_{q=q_0},
+	B_{q_j} = \cfrac{\partial{B(q)}}{\partial{q_j}} \bigg|_{q=q_0},
+	C_{q_j} = \cfrac{\partial{C(q)}}{\partial{q_j}} \bigg|_{q=q_0},\\
+	&A(q)|_{q=q_0} = A,
+	B(q)|_{q=q_0} = B,
+	C(q)|_{q=q_0} = C,\\
+	&x(t,q)|_{q=q_0} = x(t),
+	y(t,q)|_{q=q_0} = y(t),\\
+	&\cfrac{\partial{x(t,q)}}{\partial{q_j}} \bigg|_{q=q_0} = \sigma_j(t),
+	\cfrac{\partial{y(t,q)}}{\partial{q_j}} \bigg|_{q=q_0} = \eta_j(t)
+\end{align*}
+
+Теперь для $j$-й модели траекторной чувствительности получим представление модели траекторной чувствительности:
+\begin{equation}\label{eq_mts}
+	\begin{cases}
+		\dot \sigma_j(t) &= A \sigma_j(t) + A_{q_j} x(t) + B_{q_j} u(t); 
+		\sigma_j (0) = 0\\
+		\eta_j (t) &= C \sigma_j (t) + C_{q_j} x(t)
+	\end{cases}
+\end{equation}
+
+Модель траекторной чувствительности будет генерировать функции траекторной чувствительности $\sigma_j (t)$ по состоянию и $\eta_j (t)$ по выходу, если ее дополнить моделью номинального объекта управления~\ref{eq_iso_coc}.
+
+На состояние заданного объекта управления влияют $p = 5$ (далее, под записью $j = \overline{1, p}$ будет подразумеваться, что $j = 1,2,3,4,6,7$) параметров: $q_2, q_4, q_5, q_6, q_7$. Вычислим матрицы моделей траекторной чувствительности используя выше введенные обозначения:
+\begin{align}
+	&A_{q_2} = 
+	\begin{bmatrix}
+		0 & 0\\
+		0 & 0
+	\end{bmatrix};
+	B_{q_2} = 
+	\begin{bmatrix}
+		\cfrac{0.67}{16}\\
+		0
+	\end{bmatrix};
+	C_{q_2} = 
+	\begin{bmatrix}
+		0 & 0
+	\end{bmatrix};\\
+	&A_{q_4} = 
+	\begin{bmatrix}
+	0 & 0\\
+	0 & 0
+	\end{bmatrix};
+	B_{q_4} = 
+	\begin{bmatrix}
+	-\cfrac{0.67}{16}\\
+	0
+	\end{bmatrix};
+	C_{q_4} = 
+	\begin{bmatrix}
+	0 & 0
+	\end{bmatrix};\\
+	&A_{q_5} = 
+	\begin{bmatrix}
+	0 & \cfrac{5}{8}\\
+	0 & \cfrac{3}{16}
+	\end{bmatrix};
+	B_{q_5} = 
+	\begin{bmatrix}
+	-\cfrac{0.67}{16}\\
+	0
+	\end{bmatrix};
+	C_{q_5} = 
+	\begin{bmatrix}
+	0 & 0
+	\end{bmatrix};\\
+	&A_{q_6} = 
+	\begin{bmatrix}
+	0 & 0\\
+	0 & - \cfrac{3}{16}
+	\end{bmatrix};
+	B_{q_6} = 
+	\begin{bmatrix}
+	0\\
+	0
+	\end{bmatrix};
+	C_{q_6} = 
+	\begin{bmatrix}
+	0 & 0
+	\end{bmatrix};\\
+	&A_{q_7} = 
+	\begin{bmatrix}
+	0 & -\cfrac{5}{8}\\
+	0 & 0
+	\end{bmatrix};
+	B_{q_7} = 
+	\begin{bmatrix}
+	0\\
+	0
+	\end{bmatrix};
+	C_{q_7} = 
+	\begin{bmatrix}
+	0 & 0
+	\end{bmatrix};
+\end{align}
+
+\subsection{Ранжирование параметров}
+
+Оценка управляемости системы, состоящей из моделей номинальной и траекторной чувствительности параметром$ q_{j} $:
+
+\begin{equation}
+\tilde{x}_j=
+\begin{bmatrix}
+x \\ \sigma_j
+\end{bmatrix}, dim(\tilde{x})=2n, \dot{\tilde{x}_j}(t)=\tilde{A}_j\tilde{x}_j(t)+\tilde{B}_j u(t), \tilde{x}_j(0)=
+\begin{bmatrix}
+x(0)\\0
+\end{bmatrix}, 
+\end{equation}
+
+\begin{equation}
+x(t)=\tilde{C}_{xj}\tilde{x}_j(t), \sigma_j(t)=\tilde{C}_{\sigma j}\tilde{x}_j(t), \eta_j(t)=\tilde{C}_{\eta j}\tilde{x}(t).
+\end{equation}
+где
+
+\begin{align*}
+\tilde{A}_j=
+\begin{bmatrix}
+A&0\\
+A_{qj}&A
+\end{bmatrix},
+\tilde{B}_j=
+\begin{bmatrix}
+B\\B_{qj}
+\end{bmatrix},
+\tilde{C}_{xj}=
+\begin{bmatrix}
+I_{n\times n}&0_{n\times n}
+\end{bmatrix},\\
+\tilde{C}_{\sigma j}=
+\begin{bmatrix}
+0_{n\times n}&I_{n\times n}
+\end{bmatrix},
+\tilde{C}_{\eta j}=
+\begin{bmatrix}
+C_{qj} & C
+\end{bmatrix}
+\end{align*}
+
+\begin{align*}
+\tilde{A}_{2,4}=
+\begin{bmatrix}
+0&-\cfrac{5}{18}&0&0\\
+1&-\cfrac{3}{16}&0&0\\
+0&0&0&-\cfrac{5}{8}\\
+0 &0&1&-\cfrac{3}{16}
+\end{bmatrix},
+\tilde{A}_5=
+\begin{bmatrix}
+0&-\cfrac{5}{8}&0&0\\
+1&-\cfrac{3}{16}&0&0\\
+0&\cfrac{5}{8}&0&-\cfrac{5}{8}\\
+0&\cfrac{3}{16}&1&-\cfrac{3}{16}
+\end{bmatrix},
+\tilde{A}_6=
+\begin{bmatrix}
+0&-\cfrac{5}{8}&0&0\\
+1&-\cfrac{3}{16}&0&0\\
+0&0&0&-\cfrac{5}{8}\\
+0&-\cfrac{3}{16}&1&-\cfrac{3}{16}
+\end{bmatrix},
+\end{align*}
+
+\begin{align*}
+\tilde{A}_7=
+\begin{bmatrix}
+0&-\cfrac{5}{8}&0&0\\
+1&-\cfrac{3}{16}&0&0\\
+0&-\cfrac{5}{8}&0&-\cfrac{5}{8}\\
+0&0&1&-\cfrac{3}{16}
+\end{bmatrix},
+\tilde{B}_2=
+\begin{bmatrix}
+\cfrac{0.67}{16}\\
+0\\
+\cfrac{0.67}{16}\\
+0
+\end{bmatrix},
+\tilde{B}_{4,5}=
+\begin{bmatrix}
+\cfrac{0.67}{16}\\0\\
+-\cfrac{0.67}{16}\\
+0
+\end{bmatrix},
+\tilde{B}_{6,7}=
+\begin{bmatrix}
+\cfrac{0.67}{16}\\
+0\\
+0\\
+0
+\end{bmatrix},
+\end{align*}
+
+\begin{align*}
+\tilde{C}_x_{2,4,5,6,7}=
+\begin{bmatrix}
+1&0&0&0\\0&1&0&0
+\end{bmatrix},
+\tilde{C}_{2,4,5,6}=
+\begin{bmatrix}
+1&0&0&0
+\end{bmatrix},
+\tilde{C}_{\sigma_{2,4,5,6,7}}=
+\begin{bmatrix}
+0&0&1&0\\0&0&0&1
+\end{bmatrix},
+\end{align*}
+
+\begin{align*}
+\tilde{C}_{\eta_{2,4,5,6,7}}=
+\begin{bmatrix}
+0&0&0&1
+\end{bmatrix}
+\end{align*}
+
+Требования к ресурсам управления заметно снижаются, если изначально ограничиться задачей обеспечения траекторной нечувствительности выхода проектируемой системы. На уровне требований к структурным свойствам агрегированной системы задача сводится к контролю управляемости тройки матриц $(\tilde{C}_{\eta_j}, \tilde{A}_{j}, \tilde{B}_{j})$ и количественной оценке эффекта управления по переменной $\eta_j$ при приложении управления $u(t)$ фиксированной нормы с помощью сингулярных чисел матрицы управляемости
+
+Для оценки управляемости по выходу проверим матрицы $ \tilde{C}_{\eta j},\tilde{A}_j,\tilde{B}_j $:
+
+\begin{equation}
+	\tilde{W}_{y \eta_j} =
+	\begin{bmatrix}
+		\tilde{C}_{\eta_j} \tilde{B}_{j} &
+		\tilde{C}_{\eta_j} \tilde{A}_{j} \tilde{B}_{j} &
+		\tilde{C}_{\eta_j} \tilde{A}_{j}^2 \tilde{B}_{j} &		
+		\cdots &
+		\tilde{C}_{\eta_j} \tilde{A}_{j}^{2n-1} \tilde{B}_{j}
+	\end{bmatrix}
+\end{equation}
+
+Рассчитаем матрицы управляемости $\tilde{W}_{\eta_j}$
+\begin{align*}
+	&\tilde{W}_{y \eta_2} =
+	\begin{bmatrix}
+		0 &  0.041875 &   −0.0078516& −0.0246997  	
+	\end{bmatrix}, 
+	\\
+	&\tilde{W}_{y \eta_4} =
+	\begin{bmatrix}
+		0   &   −0.041875 & 0.0078516 &   0.0246997  
+	\end{bmatrix}, 
+	\\
+	&\tilde{W}_{y \eta_5} =
+	\begin{bmatrix}
+		0 & −0.041875    &    0.0157031 & 0.0479272 
+	\end{bmatrix}, 
+	\\
+	&\tilde{W}_{y \eta_6} =
+	\begin{bmatrix}
+		0   &   0   &   −0.0078516  &  0.0029443 
+	\end{bmatrix}, 
+	\\
+	&\tilde{W}_{y \eta_7} =
+	\begin{bmatrix}
+		0 & 0 &   0 & −0.0261719
+	\end{bmatrix}.
+\end{align*}
+
+Вычислим для полученных матриц управляемости сингулярные числа
+\begin{align}\label{singul_nums}
+	&\alpha\{\tilde{W}_{y \eta_{2}}\} = 0.0492467,
+	\alpha\{\tilde{W}_{y \eta_{4}}\} = 0.0492467,\\	
+	&\alpha\{\tilde{W}_{y \eta_{5}}\} = 0.0655525,	
+	\alpha\{\tilde{W}_{y \eta_{6}}\} = 0.0083855,\\		
+	&\alpha\{\tilde{W}_{y \eta_{7}}\} = 0.0261719.
+		\label{singul_nums_end}
+\end{align}
+
+
+Ранжирование параметров $q_j$ осуществляется по значению сингулярных чисел матриц управляемости. 
+Чем эти числа меньше, тем большими по норме управлениями достигается асимптотическая траекторная нечувствительность компонента yj(t) вектора выхода y(t). Отсюда следует, что асимптотическая сходимость к нулю дополнительного движения будет требовать все меньшего количества затрат при следующем расположении qj : q6, q7, q2, q4, q5.
+
+
+
+\newpage
